@@ -8,9 +8,19 @@ Ideas:
     - When player is hit by falling object, the speed increases
     - Ladders = path
     - 3 Level Changes --- change colors + new objects
+          - 1st level: In the air (Monkey will fly & catch bananas & enemy is bird & finally fall on land)
+          - 2nd level: On land (Monkey will be in the jungle & catch bananas & enemy is land animal & finally fall into water)
+          - 3rd level: Underwater (Monkey will be under the sea & catch bananas & enemy is a shark & monkey finally on land)
 - Diff Characters (if time)
 
-
+Imgs needed:
+- Title Screen
+- game over screen (you win/you lose)
+- backgrounds for each world + tiles
+- player
+- enemy
+- points
+- 
 
 
 ** Rubric + Instructions:
