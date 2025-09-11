@@ -68,4 +68,16 @@ Game Over Screen (you lose)
 Day 5 Finishing touches / Big Fixes / Practice Presentation
 
 Day 6 Presentations
+
+
+
+# Our timeline/tasks
+- Start screen
+- 3 Worlds
+      - Sky (start at the top, then fall until hits ground)
+      - Ground (start when hits groound, ends when lands in water)
+      - Water (Starts when hits water, in a water vehicle for simplicity)
+- End Screen (show game over & Win/Loss & points
+
+  HEALTH/LIVES/SCORE
   
