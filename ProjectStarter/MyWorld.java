@@ -1,32 +1,32 @@
 import mayflower.*;
 
-
 public class MyWorld extends World {
-
-    private Cat cat;
-    private Dog dog;
-    private Ninja ninja;
+    private int score;
+    private int lives;
     private String[][] tiles;
+    private Cat cat;
     
-    public MyWorld() 
+    //Default constructor that creates a start screen (black world)
+    public MyWorld()
     {
-        setBackground("img/BG/BG.png");
-        
+        setBackground("img/BG/startscreen.png");
+    }
+    //Constructor to specify an image as the world's background
+    
+    //I'm thinking: Each class - sky/land/water can extend MyWorld and call a 
+    //reference to this constructor to set the background image as something 
+    //different ------ Shriya
+    public MyWorld(String img) 
+    {
+        setBackground(img);
+
         tiles = new String[6][8];
         createTiles();
         buildWorld();
-        /*/
-        cat = new Cat();
-        addObject(cat, 100, 100);
-        
-        dog = new Dog();
-        addObject(dog, 200, 100);
-        
-        ninja = new Ninja();
-        addObject(ninja,150, 300);
-        */
+
+        // add objects of worlds (sky, land, ocean), add up scores, 
     }
-    
+
     public void createTiles(){
         for(int row = 0; row < tiles.length; row++){
             for(int col=0; col < tiles[row].length; col++){
@@ -40,7 +40,8 @@ public class MyWorld extends World {
         addRandomObjects();
         addMainCharacter();
     }
-        public void addRandomObjects(){
+
+    public void addRandomObjects(){
         for(int row=0; row<tiles.length-1;row++){
             for(int col=0; col<tiles[row].length; col++){
                 int rand = (int)(Math.random()*(tiles[0].length));
@@ -50,6 +51,7 @@ public class MyWorld extends World {
             }
         }
     }
+
     public void buildWorld(){
         for(int row=0; row < tiles.length; row++){
             for(int col=0; col < tiles[row].length; col++){
@@ -62,6 +64,7 @@ public class MyWorld extends World {
             }
         }
     }
+
     public void addMainCharacter(){
         cat = new Cat();
         boolean added = false;
@@ -74,11 +77,11 @@ public class MyWorld extends World {
                 tiles[row][col] = "cat";
                 added = true;
             }
+        }
     }
-    }
-    
+
     public void act()
     {
     }
-    
+
 }
