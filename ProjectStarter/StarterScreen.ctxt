@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=StarterScreen
+comment1.params=
+comment1.target=StarterScreen()
+comment2.params=
+comment2.target=boolean\ isStarted()
+comment3.params=
+comment3.target=void\ act()
+numComments=4
