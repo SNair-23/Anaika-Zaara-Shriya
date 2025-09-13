@@ -2,8 +2,8 @@
 comment0.target=MyWorld
 comment1.params=
 comment1.target=MyWorld()
-comment2.params=img
-comment2.target=MyWorld(java.lang.String)
+comment2.params=img\ array
+comment2.target=MyWorld(java.lang.String,\ java.lang.String[][])
 comment3.params=
 comment3.target=void\ createTiles()
 comment4.params=

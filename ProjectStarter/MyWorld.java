@@ -16,11 +16,12 @@ public class MyWorld extends World {
     //I'm thinking: Each class - sky/land/water can extend MyWorld and call a 
     //reference to this constructor to set the background image as something 
     //different ------ Shriya
-    public MyWorld(String img) 
+    public MyWorld(String img, String[][] array) 
     {
         setBackground(img);
 
-        tiles = new String[6][8];
+        tiles = array; //this used to be String[6][8] 
+        //changing it because our worlds require diff sized arrays
         createTiles();
         buildWorld();
 
@@ -33,20 +34,21 @@ public class MyWorld extends World {
                 tiles[row][col] = "";
             }
         }
-        for(int i = 0; i < tiles[5].length; i++)
+        for(int i = 0; i < tiles[tiles.length-1].length; i++)
         {
-            tiles[5][i] = "ground";
+            tiles[tiles.length-1][i] = "ground";
         }
         addRandomObjects();
         addMainCharacter();
     }
+    
 
     public void addRandomObjects(){
         for(int row=0; row<tiles.length-1;row++){
             for(int col=0; col<tiles[row].length; col++){
                 int rand = (int)(Math.random()*(tiles[0].length));
-                if(rand < 3){
-                    tiles[row][col] = "yarn";
+                if(rand < 2){
+                    tiles[row][col] = "banana";
                 }
             }
         }
@@ -58,8 +60,8 @@ public class MyWorld extends World {
                 if(tiles[row][col].equals("ground")){
                     addObject(new Block(), col * 100, row * 100);
                 }
-                if(tiles[row][col].equals("yarn")){
-                    addObject(new Yarn(), col * 100, row * 100);
+                if(tiles[row][col].equals("banana")){
+                    addObject(new Banana(), col * 100, row * 100);
                 }
             }
         }
