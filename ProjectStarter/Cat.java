@@ -5,9 +5,9 @@ public class Cat extends AnimatedActor
     private Animation walk;
     public Cat() 
     {
-        String[] filenames = new String[10];
+        String[] filenames = new String[9];
         for (int i = 0; i < filenames.length; i++){
-            filenames[i] = "img/cat/Walk (" + (i+1) + ").png";
+            filenames[i] = "img/MonkeyAnim/sprite_" + i + ".png";
         }
         walk = new Animation(50, filenames);
         walk.scale(100,87);
