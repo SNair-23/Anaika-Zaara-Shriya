@@ -5,21 +5,23 @@ public class MyWorld extends World {
     private int lives;
     private String[][] tiles;
     private Cat cat;
-    
+    private TypeWorld world;
+
     //Default constructor that creates a start screen (black world)
     public MyWorld()
     {
         setBackground("img/BG/startscreen.png");
+
     }
     //Constructor to specify an image as the world's background
-    
+
     //I'm thinking: Each class - sky/land/water can extend MyWorld and call a 
     //reference to this constructor to set the background image as something 
     //different ------ Shriya
-    public MyWorld(String img, String[][] array) 
+    public MyWorld(TypeWorld subworld, String img, String[][] array) 
     {
         setBackground(img);
-
+        world = subworld;
         tiles = array; //this used to be String[6][8] 
         //changing it because our worlds require diff sized arrays
         createTiles();
@@ -41,17 +43,28 @@ public class MyWorld extends World {
         addRandomObjects();
         addMainCharacter();
     }
-    
 
     public void addRandomObjects(){
-        for(int row=0; row<tiles.length-1;row++){
-            for(int col=0; col<tiles[row].length; col++){
-                int rand = (int)(Math.random()*(tiles[0].length));
-                if(rand < 2){
-                    tiles[row][col] = "banana";
+        if(world.equals(TypeWorld.Sky)){
+            for(int row=0; row<tiles.length-1;row++){
+                for(int col=0; col<tiles[row].length; col++){
+                    int rand = (int)(Math.random()*(tiles[0].length));
+                    if(rand < 2){
+                        tiles[row][col] = "banana";
+                    }
                 }
             }
         }
+        else if(world.equals(TypeWorld.Land)){
+
+            for(int col=0; col<tiles[0].length; col++){
+                int rand = (int)(Math.random()*(tiles[0].length));
+                if(rand < 10){
+                    tiles[0][col] = "banana";
+                }
+            }
+        }
+
     }
 
     public void buildWorld(){
@@ -85,5 +98,5 @@ public class MyWorld extends World {
     public void act()
     {
     }
-
 }
+
