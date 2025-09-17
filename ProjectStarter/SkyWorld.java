@@ -15,22 +15,41 @@ import mayflower.*;
 public class SkyWorld extends MyWorld
 {
     // instance variables - replace the example below with your own
+    private boolean start;
     
-   
     /**
      * Constructor for objects of class SkyWorld
      */
     public SkyWorld()
     {
         // initialise instance variables
-        super("img/BG/BG.png", new String[32][6]);
-        
+        super("img/BG/Sky_Blue.png", new String[32][6]);
+        start = false;
         showText("Replace this bg with a sky image", 200, 200, Color.BLACK);
         
         
     }
     
+    public boolean isStarted(){
+        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
+            start = true;
+            
+        }
+        else{
+            start = false;
+        }
+        return start;
+    }
     
-
-
-}
+    public void act(){
+        if(isStarted()){
+            LandWorld land = new LandWorld();
+            Mayflower.setWorld(land);
+            start = false;
+            //problem? -- will this continue being called and not allow us to
+            //move to another world than the sky? -- fix
+        }
+    }
+    }
+  
+    
