@@ -23,7 +23,7 @@ public class SkyWorld extends MyWorld
     public SkyWorld()
     {
         // initialise instance variables
-        super("img/BG/Sky_Blue.png", new String[32][6]);
+        super(TypeWorld.Sky, "img/BG/Sky_Blue.png", new String[32][6]);
         start = false;
         showText("Replace this bg with a sky image", 200, 200, Color.BLACK);
         
