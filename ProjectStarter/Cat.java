@@ -42,10 +42,7 @@ public class Cat extends AnimatedActor
         return this.locationY * 100; // Convert to pixel value
     }
     
-    public void setFalling()
-    {
-        this.setLocation(getLocationX(), getLocationY()-1);
-    }
+   
     
     public void act()
     {

@@ -103,9 +103,6 @@ public class MyWorld extends World {
 
     public void act()
     {
-        if(world.equals(TypeWorld.Sky)){
-            cat.setFalling(); // doesn't work yet
-        }
     }
 }
 
