@@ -26,20 +26,44 @@ public class SkyWorld extends MyWorld
         super(TypeWorld.Sky, "img/BG/Sky_Blue.png", new String[32][6]);
         start = false;
         showText("Replace this bg with a sky image", 200, 200, Color.BLACK);
-        
-        
+
     }
-    
     public boolean isStarted(){
-        if (Mayflower.isKeyDown(Keyboard.KEY_D )) { //need to press "D" key to move to next world! Change this later
+        if (Mayflower.isKeyDown(Keyboard.KEY_D)) {
             start = true;
-            
+
         }
         else{
             start = false;
         }
         return start;
     }
+    
+    @Override
+    public void addRandomObjects(){
+        super.addRandomObjects();
+        for(int row=1; row<tiles.length-1;row++){
+                for(int col=0; col<tiles[row].length; col++){
+                    int rand = (int)(Math.random()*(tiles[0].length));
+                    if((rand < 3) && (tiles[row][col] == "")){
+                        tiles[row][col] = "cloud";
+                    }
+                }
+         }
+    }
+    
+    @Override
+    public void buildWorld(){
+        super.buildWorld();
+        for(int row=0; row < tiles.length; row++){
+            for(int col=0; col < tiles[row].length; col++){
+                if(tiles[row][col].equals("cloud")){
+                    addObject(new Cloud(), col * 100, row * 100);
+                }
+            }
+        }
+    }
+
     
     public void act(){
         if(isStarted()){
@@ -49,7 +73,8 @@ public class SkyWorld extends MyWorld
             //problem? -- will this continue being called and not allow us to
             //move to another world than the sky? -- fix
         }
+        
+
     }
-    }
-  
-    
+}
+
