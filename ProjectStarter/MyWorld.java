@@ -81,7 +81,7 @@ public class MyWorld extends World {
     }
 
     public void addMainCharacter(){
-        cat = new Cat();
+        cat = new Cat(1, 2);
         boolean added = false;
         while (added == false)
         {
@@ -91,6 +91,12 @@ public class MyWorld extends World {
                 addObject(cat, col, row);
                 tiles[row][col] = "cat";
                 added = true;
+            }
+            if (world.equals(TypeWorld.Sky)){
+                cat.setIdle();
+            }
+            else if(world.equals(TypeWorld.Land)){
+                cat.setWalk();
             }
         }
     }

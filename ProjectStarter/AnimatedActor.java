@@ -12,7 +12,7 @@ public class AnimatedActor extends Actor
     private Animation animation;
     private Timer animationTimer;
     public AnimatedActor(){
-        animationTimer = new Timer(10000000);
+        animationTimer = new Timer(10000);
     }   
     public void setAnimation(Animation a){
         animation = a;

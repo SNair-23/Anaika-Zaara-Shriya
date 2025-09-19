@@ -16,7 +16,7 @@ public class SkyWorld extends MyWorld
 {
     // instance variables - replace the example below with your own
     private boolean start;
-    
+
     /**
      * Constructor for objects of class SkyWorld
      */
