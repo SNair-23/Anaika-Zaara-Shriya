@@ -31,7 +31,7 @@ public class SkyWorld extends MyWorld
     }
     
     public boolean isStarted(){
-        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
+        if (Mayflower.isKeyDown(Keyboard.KEY_D )) { //need to press "D" key to move to next world! Change this later
             start = true;
             
         }
