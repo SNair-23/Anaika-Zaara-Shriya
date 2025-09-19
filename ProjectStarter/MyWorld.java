@@ -49,7 +49,7 @@ public class MyWorld extends World {
             for(int row=0; row<tiles.length-1;row++){
                 for(int col=0; col<tiles[row].length; col++){
                     int rand = (int)(Math.random()*(tiles[0].length));
-                    if(rand < 2){
+                    if((rand < 2) && tiles[row][col] != "cat"){
                         tiles[row][col] = "banana";
                     }
                 }
@@ -59,8 +59,8 @@ public class MyWorld extends World {
 
             for(int col=0; col<tiles[0].length; col++){
                 int rand = (int)(Math.random()*(tiles[0].length));
-                if(rand < 10){
-                    tiles[0][col] = "banana";
+                if(rand < 10 && tiles[5][col] != "cat"){
+                    tiles[5][col] = "banana";
                 }
             }
         }
@@ -81,7 +81,7 @@ public class MyWorld extends World {
     }
 
     public void addMainCharacter(){
-        cat = new Cat(1, 2);
+        cat = new Cat(4, 3);
         boolean added = false;
         while (added == false)
         {
