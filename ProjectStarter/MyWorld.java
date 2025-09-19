@@ -3,7 +3,7 @@ import mayflower.*;
 public class MyWorld extends World {
     private int score;
     private int lives;
-    private String[][] tiles;
+    public String[][] tiles;
     private Cat cat;
     private TypeWorld world;
 
@@ -49,7 +49,7 @@ public class MyWorld extends World {
             for(int row=0; row<tiles.length-1;row++){
                 for(int col=0; col<tiles[row].length; col++){
                     int rand = (int)(Math.random()*(tiles[0].length));
-                    if((rand < 2) && tiles[row][col] != "cat"){
+                    if((rand < 1) && tiles[row][col] == ""){
                         tiles[row][col] = "banana";
                     }
                 }
@@ -59,7 +59,7 @@ public class MyWorld extends World {
 
             for(int col=0; col<tiles[0].length; col++){
                 int rand = (int)(Math.random()*(tiles[0].length));
-                if(rand < 10 && tiles[5][col] != "cat"){
+                if(rand < 10 && tiles[5][col] == ""){
                     tiles[5][col] = "banana";
                 }
             }
@@ -103,6 +103,9 @@ public class MyWorld extends World {
 
     public void act()
     {
+        if(world.equals(TypeWorld.Sky)){
+            cat.setFalling(); // doesn't work yet
+        }
     }
 }
 
