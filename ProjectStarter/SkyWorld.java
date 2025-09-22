@@ -16,18 +16,15 @@ public class SkyWorld extends MyWorld
 {
     // instance variables - replace the example below with your own
     private boolean start;
-
-    /**
-     * Constructor for objects of class SkyWorld
-     */
+    private int bottomRow;
     public SkyWorld()
     {
         // initialise instance variables
-        super(TypeWorld.Sky, "img/BG/Sky_Blue.png", new String[32][6]);
+        super(TypeWorld.Sky, "img/BG/Sky_Blue.png", new String[30][8], 300, 200);
         start = false;
-        showText("Replace this bg with a sky image", 200, 200, Color.BLACK);
-
+        bottomRow = 6;
     }
+    
     public boolean isStarted(){
         if (Mayflower.isKeyDown(Keyboard.KEY_D)) {
             start = true;
@@ -58,12 +55,18 @@ public class SkyWorld extends MyWorld
         for(int row=0; row < tiles.length; row++){
             for(int col=0; col < tiles[row].length; col++){
                 if(tiles[row][col].equals("cloud")){
-                    addObject(new Cloud(), col * 100, row * 100);
+                    addObject(new Cloud(true), col * 100, row * 100);
                 }
             }
         }
     }
+    
+    public void scroll(){
+        while (bottomRow != 30){
+            bottomRow ++;
 
+        }
+    }
     
     public void act(){
         if(isStarted()){
@@ -73,8 +76,7 @@ public class SkyWorld extends MyWorld
             //problem? -- will this continue being called and not allow us to
             //move to another world than the sky? -- fix
         }
-        
-
+       
     }
 }
 

@@ -13,9 +13,7 @@ public class LandWorld extends MyWorld
     public LandWorld()
     {
 
-        super(TypeWorld.Land,"img/BG/img.jpg", new String[32][6]);
-        
-        showText("Replace this bg with a sky image", 200, 200, Color.BLACK);
+        super(TypeWorld.Land,"img/BG/img.jpg", new String[6][32], 2, 5);
         
         
     }

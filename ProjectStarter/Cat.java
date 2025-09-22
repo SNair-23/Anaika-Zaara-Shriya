@@ -10,6 +10,7 @@ public class Cat extends AnimatedActor
     {
         locationX = x;
         locationY = y;
+        setLocation(locationX, locationY);
     }
     
     public void setWalk() //sets the character's animation to walking
@@ -31,22 +32,21 @@ public class Cat extends AnimatedActor
         idle = new Animation(50, filenames1);
         idle.scale(100, 87);
         setAnimation(idle);
-    }
-    
-    public int getLocationX()
-    {
-        return this.locationX * 100; // Convert to pixel value
-    }
-    public int getLocationY()
-    {
-        return this.locationY * 100; // Convert to pixel value
-    }
-    
-   
+    }  
     
     public void act()
     {
         super.act();
-   
+        int x = getX();
+        int y = getY();
+        int w = getWidth();
+        int h = getHeight();   
+        
+        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
+            setLocation (x + 1, y);
+        }
+        else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
+            setLocation(x - 1, y);
+            }
     }
 }

@@ -6,6 +6,10 @@ public class MyWorld extends World {
     public String[][] tiles;
     private Cat cat;
     private TypeWorld world;
+    
+    //location of the character
+    private int x;
+    private int y;
 
     //Default constructor that creates a start screen (black world)
     public MyWorld()
@@ -18,7 +22,7 @@ public class MyWorld extends World {
     //I'm thinking: Each class - sky/land/water can extend MyWorld and call a 
     //reference to this constructor to set the background image as something 
     //different ------ Shriya
-    public MyWorld(TypeWorld subworld, String img, String[][] array) 
+    public MyWorld(TypeWorld subworld, String img, String[][] array, int x , int y) 
     {
         setBackground(img);
         world = subworld;
@@ -26,6 +30,9 @@ public class MyWorld extends World {
         //changing it because our worlds require diff sized arrays
         createTiles();
         buildWorld();
+        
+        this.x = x;
+        this.y = y;
 
         // add objects of worlds (sky, land, ocean), add up scores, 
     }
@@ -41,7 +48,7 @@ public class MyWorld extends World {
             tiles[tiles.length-1][i] = "ground";
         }
         addRandomObjects();
-        addMainCharacter();
+        addMainCharacter(x, y);
     }
 
     public void addRandomObjects(){
@@ -59,8 +66,8 @@ public class MyWorld extends World {
 
             for(int col=0; col<tiles[0].length; col++){
                 int rand = (int)(Math.random()*(tiles[0].length));
-                if(rand < 10 && tiles[5][col] == ""){
-                    tiles[5][col] = "banana";
+                if(rand < 10 && tiles[4][col] == ""){
+                    tiles[4][col] = "banana";
                 }
             }
         }
@@ -71,27 +78,28 @@ public class MyWorld extends World {
         for(int row=0; row < tiles.length; row++){
             for(int col=0; col < tiles[row].length; col++){
                 if(tiles[row][col].equals("ground")){
-                    addObject(new Block(), col * 100, row * 100);
+                    addObject(new Block(true), col * 100, row * 100);
                 }
                 if(tiles[row][col].equals("banana")){
-                    addObject(new Banana(), col * 100, row * 100);
+                    addObject(new Banana(true), col * 100, row * 100);
                 }
             }
         }
     }
 
-    public void addMainCharacter(){
-        cat = new Cat(4, 3);
+    public void addMainCharacter(int x, int y){
+        cat = new Cat(x, y);
         boolean added = false;
         while (added == false)
         {
-            int row = (int)(Math.random()*tiles.length);
-            int col = (int)(Math.random()*tiles[0].length);
-            if(tiles[row][col].equals("")){
-                addObject(cat, col, row);
-                tiles[row][col] = "cat";
-                added = true;
-            }
+            int row = cat.getX();
+            int col = cat.getY();
+            
+            addObject(cat, row*100, col*100);
+            tiles[row][col] = "cat";
+            added = true;
+            
+            
             if (world.equals(TypeWorld.Sky)){
                 cat.setIdle();
             }
@@ -100,9 +108,12 @@ public class MyWorld extends World {
             }
         }
     }
-
+    
+    
+    
     public void act()
     {
+        
     }
 }
 
