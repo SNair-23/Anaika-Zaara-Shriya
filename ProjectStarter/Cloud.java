@@ -6,6 +6,7 @@ public class Cloud extends Actor
     public Cloud(boolean val){
         img = new MayflowerImage("img/cloud.png");
         img.scale(200,87);
+        img.crop(18, 5, 50, 25);
         setImage(img);
         falling = val;
     }
