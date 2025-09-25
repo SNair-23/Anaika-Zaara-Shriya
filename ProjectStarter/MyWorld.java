@@ -52,17 +52,8 @@ public class MyWorld extends World {
     }
 
     public void addRandomObjects(){
-        if(world.equals(TypeWorld.Sky)){
-            for(int row=0; row<tiles.length-1;row++){
-                for(int col=0; col<tiles[row].length; col++){
-                    int rand = (int)(Math.random()*(tiles[0].length));
-                    if((rand < 1) && tiles[row][col] == ""){
-                        tiles[row][col] = "banana";
-                    }
-                }
-            }
-        }
-        else if(world.equals(TypeWorld.Land)){
+        
+        if(world.equals(TypeWorld.Land)){
 
             for(int col=0; col<tiles[0].length; col++){
                 int rand = (int)(Math.random()*(tiles[0].length));
@@ -109,7 +100,9 @@ public class MyWorld extends World {
         }
     }
     
-    
+    public Cat getCat(){
+        return this.cat;
+    }
     
     public void act()
     {
