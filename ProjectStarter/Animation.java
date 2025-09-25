@@ -54,4 +54,10 @@ public class Animation
             frames[image].setTransparency(percent);
         }
     }
+    
+    public void setBounds(int x, int y, int w, int h){
+        for(int image = 0; image < frames.length; image++){
+            frames[image].crop(x, y, w, h);
+        } 
+    }
 }
