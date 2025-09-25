@@ -17,12 +17,14 @@ public class SkyWorld extends MyWorld
     // instance variables - replace the example below with your own
     private boolean start;
     private int bottomRow;
+    private Cat skyMonkey;
     public SkyWorld()
     {
         // initialise instance variables
         super(TypeWorld.Sky, "img/BG/Sky_Blue.png", new String[30][8], 300, 200);
         start = false;
         bottomRow = 6;
+        skyMonkey = super.getCat();
     }
     
     public boolean isStarted(){
@@ -38,7 +40,14 @@ public class SkyWorld extends MyWorld
     
     @Override
     public void addRandomObjects(){
-        super.addRandomObjects();
+        for(int row=0; row<tiles.length-1;row++){
+                for(int col=0; col<tiles[row].length; col++){
+                    int rand = (int)(Math.random()*(tiles[0].length));
+                    if((rand < 1) && tiles[row][col] == ""){
+                        tiles[row][col] = "banana";
+                    }
+                }
+            }
         for(int row=1; row<tiles.length-1;row++){
                 for(int col=0; col<tiles[row].length; col++){
                     int rand = (int)(Math.random()*(tiles[0].length));
@@ -67,6 +76,14 @@ public class SkyWorld extends MyWorld
 
         }
     }
+     public boolean isBlocked(){
+        if(skyMonkey.isTouchingCloud()){
+            return true;
+        }
+        return false;
+    }
+    
+    
     
     public void act(){
         if(isStarted()){
@@ -76,7 +93,10 @@ public class SkyWorld extends MyWorld
             //problem? -- will this continue being called and not allow us to
             //move to another world than the sky? -- fix
         }
-       
+        while(isBlocked()){
+            skyMonkey.setLocation(skyMonkey.getX(), skyMonkey.getY() - 4); 
+        }
+        skyMonkey.setLocation(skyMonkey.getX(), skyMonkey.getY() + 5); 
     }
 }
 
