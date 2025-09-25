@@ -34,6 +34,14 @@ public class Cat extends AnimatedActor
         setAnimation(idle);
     }  
     
+
+    public boolean isTouchingCloud(){
+        if (this.isTouching(Cloud.class)){
+            return true;
+        }
+        return false;
+    }
+    
     public void act()
     {
         super.act();
