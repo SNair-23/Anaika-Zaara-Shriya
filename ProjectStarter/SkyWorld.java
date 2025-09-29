@@ -18,6 +18,8 @@ public class SkyWorld extends MyWorld
     private boolean start;
     private int actions;
     private Cat skyMonkey;
+    private boolean falling;
+    private int countFall;
     public SkyWorld()
     {
         // initialise instance variables
@@ -25,7 +27,7 @@ public class SkyWorld extends MyWorld
         skyMonkey = super.getCat();
         actions = 0;
         start = false;
-      
+        countFall = 0;
     }
     
     public boolean isStarted(){
@@ -65,21 +67,43 @@ public class SkyWorld extends MyWorld
     
     @Override
     public void buildWorld(){
-        super.buildWorld();
+        if(countFall == 1){
+            super.buildWorld();
+        }
+        Cloud a = new Cloud(false);
+        Cloud b = new Cloud(false);
+        addObject(a, 0, 100);
+        addObject(b, 100, 100);
+        
         for(int row=0; row < tiles.length; row++){
             for(int col=0; col < tiles[row].length; col++){
-                if(tiles[row][col].equals("cloud")){
+                if(tiles[row][col].equals("cloud") && countFall == 1){
+                    removeObject(a);
+                    removeObject(b);
                     addObject(new Cloud(true), col * 100, row * 100);
                 }
             }
         }
     }
     
+    public int checkIfFalling(int x){
+        if(x > 250)
+            {
+                countFall += 1;
+            }
+        else
+            {
+                countFall += 0;
+            }
+        return countFall;
+        }
+    
+    
     
     public boolean canFall(){
         int counter = 0;
         do{
-            if(skyMonkey.getX() > 100){
+            if(skyMonkey.getX() > 250 && skyMonkey.getY() < 350){
                 counter++;
                 return true;
                 }
@@ -91,7 +115,11 @@ public class SkyWorld extends MyWorld
     public void act(){
         int x = skyMonkey.getX();
         int y = skyMonkey.getY();
-
+        
+        if(checkIfFalling(x) == 1){
+            buildWorld();            
+        }
+        
         
         if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
             skyMonkey.setLocation (x + 1, y);
@@ -107,15 +135,16 @@ public class SkyWorld extends MyWorld
             //move to another world than the sky? -- fix
         }
         if(canFall()){
-            while((skyMonkey.isTouchingObject() == WorldObject.Cloud)&&(!Mayflower.isKeyDown(Keyboard.KEY_DOWN))){
-                skyMonkey.setLocation(skyMonkey.getX(), skyMonkey.getY() - 4); 
+            skyMonkey.setLocation(x, y + 5); 
+        
+        }
+        while((skyMonkey.isTouchingObject() == WorldObject.Cloud)&&(!Mayflower.isKeyDown(Keyboard.KEY_DOWN))){
+                skyMonkey.setLocation(x, y - 5); 
             }
-            if(skyMonkey.isTouchingObject() == WorldObject.Block){
+        if(skyMonkey.isTouchingObject() == WorldObject.Block){
                 LandWorld land = new LandWorld();
                 Mayflower.setWorld(land);
                 start = false;
-            }
-            skyMonkey.setLocation(skyMonkey.getX(), skyMonkey.getY() + 5); 
         }
     }
 }
