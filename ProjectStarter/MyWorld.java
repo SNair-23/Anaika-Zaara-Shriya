@@ -4,7 +4,7 @@ public class MyWorld extends World {
     private int score;
     private int lives;
     public String[][] tiles;
-    private Cat cat;
+    public Cat cat;
     private TypeWorld world;
     
     //location of the character
@@ -69,7 +69,7 @@ public class MyWorld extends World {
         for(int row=0; row < tiles.length; row++){
             for(int col=0; col < tiles[row].length; col++){
                 if(tiles[row][col].equals("ground")){
-                    addObject(new Block(true), col * 100, row * 100);
+                    addObject(new Block(), col * 100, row * 100);
                 }
                 if(tiles[row][col].equals("banana")){
                     addObject(new Banana(true), col * 100, row * 100);
@@ -101,7 +101,7 @@ public class MyWorld extends World {
     }
     
     public Cat getCat(){
-        return this.cat;
+        return cat;
     }
     
     public void act()

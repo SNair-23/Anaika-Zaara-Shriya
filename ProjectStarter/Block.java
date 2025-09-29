@@ -8,20 +8,15 @@
 import mayflower.*;
 public class Block extends Actor
 {
-    private boolean falling;
-    public Block(boolean val){
+    public Block(){
         setImage("img/Tiles/2.png");
-        falling = val;
+     
     }
     public void act(){
         int x = getX();
         int y = getY();
         int w = getWidth();
         int h = getHeight();   
-        
-        if (falling) {
-            setLocation (x, y-1);
-        }
         
     }
 }

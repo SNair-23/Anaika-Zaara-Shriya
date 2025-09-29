@@ -5,8 +5,7 @@ public class Cloud extends Actor
     private boolean falling;
     public Cloud(boolean val){
         img = new MayflowerImage("img/cloud.png");
-        img.scale(200,87);
-        img.crop(18, 5, 50, 25);
+        img.scale(150,87);
         setImage(img);
         falling = val;
     }
@@ -17,7 +16,7 @@ public class Cloud extends Actor
         int h = getHeight();   
         
         if (falling) {
-            setLocation (x, y-1);
+            setLocation (x, y-0.5);
         }
         
     }

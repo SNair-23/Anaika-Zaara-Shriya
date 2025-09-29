@@ -16,15 +16,16 @@ public class SkyWorld extends MyWorld
 {
     // instance variables - replace the example below with your own
     private boolean start;
-    private int bottomRow;
+    private int actions;
     private Cat skyMonkey;
     public SkyWorld()
     {
         // initialise instance variables
         super(TypeWorld.Sky, "img/BG/Sky_Blue.png", new String[30][8], 300, 200);
-        start = false;
-        bottomRow = 6;
         skyMonkey = super.getCat();
+        actions = 0;
+        start = false;
+      
     }
     
     public boolean isStarted(){
@@ -50,8 +51,12 @@ public class SkyWorld extends MyWorld
             }
         for(int row=1; row<tiles.length-1;row++){
                 for(int col=0; col<tiles[row].length; col++){
+                    if(row==1 && col<5){
+                        tiles[row][col] = "cloud";
+
+                    }
                     int rand = (int)(Math.random()*(tiles[0].length));
-                    if((rand < 3) && (tiles[row][col] == "")){
+                    if((rand < 2) && (tiles[row][col] == "")){
                         tiles[row][col] = "cloud";
                     }
                 }
@@ -70,22 +75,30 @@ public class SkyWorld extends MyWorld
         }
     }
     
-    public void scroll(){
-        while (bottomRow != 30){
-            bottomRow ++;
-
-        }
-    }
-     public boolean isBlocked(){
-        if(skyMonkey.isTouchingCloud()){
-            return true;
-        }
-        return false;
-    }
     
+    public boolean canFall(){
+        int counter = 0;
+        do{
+            if(skyMonkey.getX() > 100){
+                counter++;
+                return true;
+                }
+            return false;
+        }while(counter == 0);
+    }
     
     
     public void act(){
+        int x = skyMonkey.getX();
+        int y = skyMonkey.getY();
+
+        
+        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
+            skyMonkey.setLocation (x + 1, y);
+        }
+        else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
+            skyMonkey.setLocation(x - 1, y);
+            }
         if(isStarted()){
             LandWorld land = new LandWorld();
             Mayflower.setWorld(land);
@@ -93,10 +106,17 @@ public class SkyWorld extends MyWorld
             //problem? -- will this continue being called and not allow us to
             //move to another world than the sky? -- fix
         }
-        while(isBlocked()){
-            skyMonkey.setLocation(skyMonkey.getX(), skyMonkey.getY() - 4); 
+        if(canFall()){
+            while((skyMonkey.isTouchingObject() == WorldObject.Cloud)&&(!Mayflower.isKeyDown(Keyboard.KEY_DOWN))){
+                skyMonkey.setLocation(skyMonkey.getX(), skyMonkey.getY() - 4); 
+            }
+            if(skyMonkey.isTouchingObject() == WorldObject.Block){
+                LandWorld land = new LandWorld();
+                Mayflower.setWorld(land);
+                start = false;
+            }
+            skyMonkey.setLocation(skyMonkey.getX(), skyMonkey.getY() + 5); 
         }
-        skyMonkey.setLocation(skyMonkey.getX(), skyMonkey.getY() + 5); 
     }
 }
 

@@ -35,26 +35,22 @@ public class Cat extends AnimatedActor
     }  
     
 
-    public boolean isTouchingCloud(){
+    public WorldObject isTouchingObject(){
         if (this.isTouching(Cloud.class)){
-            return true;
+            return WorldObject.Cloud;
         }
-        return false;
+        if (this.isTouching(Block.class)){
+            return WorldObject.Block;
+        }
+        if (this.isTouching(Banana.class)){
+            return WorldObject.Banana;
+        }
+        return null;
     }
     
     public void act()
     {
         super.act();
-        int x = getX();
-        int y = getY();
-        int w = getWidth();
-        int h = getHeight();   
         
-        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
-            setLocation (x + 1, y);
-        }
-        else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
-            setLocation(x - 1, y);
-            }
     }
 }
