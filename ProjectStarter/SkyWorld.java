@@ -53,8 +53,8 @@ public class SkyWorld extends MyWorld
             }
         for(int row=1; row<tiles.length-1;row++){
                 for(int col=0; col<tiles[row].length; col++){
-                    if(row==1 && col<5){
-                        tiles[row][col] = "cloud";
+                    if(row<3 && col<5){
+                        tiles[row][col] = " ";
 
                     }
                     int rand = (int)(Math.random()*(tiles[0].length));
@@ -99,16 +99,12 @@ public class SkyWorld extends MyWorld
         }
     
     
-    
-    public boolean canFall(){
+    public boolean canFall(int x){
         int counter = 0;
-        do{
-            if(skyMonkey.getX() > 250 && skyMonkey.getY() < 350){
-                counter++;
-                return true;
-                }
-            return false;
-        }while(counter == 0);
+        while(checkIfFalling(x) > 0){
+            return true;
+        }
+        return false;
     }
     
     
@@ -120,11 +116,13 @@ public class SkyWorld extends MyWorld
             buildWorld();            
         }
         
-        
+        if(canFall(x)){
+            skyMonkey.setLocation(x, y + 1); 
+        }
         if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
             skyMonkey.setLocation (x + 1, y);
         }
-        else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
+        if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
             skyMonkey.setLocation(x - 1, y);
             }
         if(isStarted()){
@@ -134,10 +132,7 @@ public class SkyWorld extends MyWorld
             //problem? -- will this continue being called and not allow us to
             //move to another world than the sky? -- fix
         }
-        if(canFall()){
-            skyMonkey.setLocation(x, y + 5); 
         
-        }
         while((skyMonkey.isTouchingObject() == WorldObject.Cloud)&&(!Mayflower.isKeyDown(Keyboard.KEY_DOWN))){
                 skyMonkey.setLocation(x, y - 5); 
             }
