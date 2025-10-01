@@ -1,6 +1,5 @@
 
 /**
- * Write a description of class LandWorld here.
  *
  * @Zaara I (your name)
  * @version (a version number or a date)
