@@ -2,11 +2,12 @@ import mayflower.*;
 public class SeaWorld extends MyWorld {
     private boolean levelComplete;
     private Cat seaMonkey;
-
+    private int lives;
     public SeaWorld() {
-        super(TypeWorld.Water, "img/BG/SeaWorld.png", new String[30][8], 600, 800);
+        super(TypeWorld.Water, "img/BG/SeaBlue.jpg", new String[30][8], 600, 800);
         levelComplete = false;
         seaMonkey = super.getCat();
+        lives = 3;
     }
 
     public boolean isStarted(){
@@ -60,17 +61,45 @@ public class SeaWorld extends MyWorld {
             }
         }
     }
+    
+    public void loseLife(){
+         lives -= 1;
+    }
+    
+    public int numLives(){
+        return lives;
+    }
 
     public void act(){
+        super.act();
+        showText("Lives: " + lives, 10, 50, Color.BLACK);
         int x = seaMonkey.getX();
         int y = seaMonkey.getY();
-
-        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
-            seaMonkey.setLocation (x + 1, y);
+        int w = getWidth();
+        int h = getHeight();
+        
+        if(seaMonkey.isTouchingObject() == WorldObject.Crab)
+        {
+            loseLife();
         }
-        else if (Mayflower.isKeyDown( Keyboard.KEY_SPACE )) {
-            seaMonkey.setLocation(x, y + 1);
+       
+        if(Mayflower.isKeyDown(Keyboard.KEY_RIGHT) && x+w<800)
+        {
+            seaMonkey.setLocation(x-1, y);
         }
+        else if(Mayflower.isKeyDown(Keyboard.KEY_LEFT) && x>0)
+        {
+            seaMonkey.setLocation(x+1, y);
+        }
+        else if(Mayflower.isKeyDown(Keyboard.KEY_UP) && y>0)
+        {
+            seaMonkey.setLocation(x, y-1);
+        }
+        else if(Mayflower.isKeyDown(Keyboard.KEY_DOWN) && y<600)
+        {
+            seaMonkey.setLocation(x, y+1);
+        }
+        
         if(isStarted()){
             SeaWorld water = new SeaWorld();
             Mayflower.setWorld(water);
