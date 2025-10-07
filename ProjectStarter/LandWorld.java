@@ -87,6 +87,7 @@ public class LandWorld extends MyWorld
     
     public void act()
     {
+
         int x = landMonkey.getX();
         int y = landMonkey.getY();
         
