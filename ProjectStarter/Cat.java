@@ -56,9 +56,15 @@ public class Cat extends AnimatedActor
             return WorldObject.Block;
         }
         if (this.isTouching(Banana.class)){
+            removeTouching(Banana.class);
             return WorldObject.Banana;
         }
         return null;
+    }
+    
+    public boolean isEndangered(boolean danger)
+    {
+        return danger;
     }
     
     public void act()
