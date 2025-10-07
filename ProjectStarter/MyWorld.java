@@ -95,7 +95,10 @@ public class MyWorld extends World {
                 cat.setIdle();
             }
             else if(world.equals(TypeWorld.Land)){
-                cat.setWalk();
+                cat.setWalkRight();
+            }
+            else if(world.equals(TypeWorld.Water)){
+                cat.setIdle();
             }
         }
     }

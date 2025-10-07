@@ -1,10 +1,11 @@
 import mayflower.*;
+
 /**
  * Write a description of class EndWinScreen here.
  *
  * @author (Zaara I)
  * @version (a version number or a date)
- */
+ 
 public class EndWinScreen extends MyWorld
 {
     private String text;
@@ -35,3 +36,5 @@ public class EndWinScreen extends MyWorld
         
     }
 }
+
+*/

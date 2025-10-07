@@ -2,7 +2,8 @@ import mayflower.*;
 
 public class Cat extends AnimatedActor
 {
-    private Animation walk;
+    private Animation walkRight;
+    private Animation walkLeft;
     private Animation idle;
     private int locationX;
     private int locationY;
@@ -13,15 +14,27 @@ public class Cat extends AnimatedActor
         setLocation(locationX, locationY);
     }
     
-    public void setWalk() //sets the character's animation to walking
+    public void setWalkRight() //sets the character's animation to walking
     {
         String[] filenames = new String[9];
         for (int i = 0; i < filenames.length; i++){
             filenames[i] = "img/MonkeyAnim/sprite_" + i + ".png";
         }
-        walk = new Animation(50, filenames);
-        walk.scale(100,87);
-        setAnimation(walk);
+        walkRight= new Animation(50, filenames);
+        walkRight.scale(100,87);
+        setAnimation(walkRight);
+    }
+    public void setWalkLeft() //sets the character's animation to walking
+    {
+        String[] filenames = new String[9];
+        for (int i = 0; i < filenames.length; i++){
+            filenames[i] = "img/MonkeyAnim/sprite_" + i + ".png";
+            
+        }
+        walkLeft = new Animation(50, filenames);
+        walkLeft.scale(100,87);
+        walkLeft.mirrorHorizontally();
+        setAnimation(walkLeft);
     }
     public void setIdle() // sets the character's animation to idle
     {

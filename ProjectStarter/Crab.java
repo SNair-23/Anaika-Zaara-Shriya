@@ -4,7 +4,7 @@ public class Crab extends Actor
     private MayflowerImage img;
     private boolean falling;
     public Crab(boolean val){
-        img = new MayflowerImage("crab.png");
+        img = new MayflowerImage("img/crab.png");
         img.scale(200,87);
         setImage(img);
         falling = val;

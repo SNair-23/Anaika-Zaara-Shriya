@@ -1,34 +1,35 @@
 import mayflower.*;
-
 public class SeaWorld extends MyWorld {
     private boolean levelComplete;
-    private boolean start;
+    private Cat seaMonkey;
 
     public SeaWorld() {
-        super(TypeWorld.Sea, "img/BG/Sea_Blue.png", new String[30][8], 300, 200);
+        super(TypeWorld.Water, "img/BG/SeaWorld.png", new String[30][8], 300, 200);
         levelComplete = false;
+        seaMonkey = super.getCat();
     }
-    
+
     public boolean isStarted(){
-        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
-            start = true;
-            
+        if (Mayflower.isKeyDown(Keyboard.KEY_D)) {
+            levelComplete = true;
+
         }
-        else
+        else 
         {
-            start = false;
+            levelComplete = false;
         }
-        return start;
-    } 
+
+        return levelComplete;
+    }
 
     @Override
     public void addRandomObjects() {
         super.addRandomObjects();
         for (int row = 1; row < tiles.length - 1; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
-                int rand = (int) (Math.random() * tiles[0].length);
+                int rand = (int)(Math.random() * tiles[0].length);
                 if (rand < 3 && tiles[row][col].equals("")) {
-                    tiles[row][col] = "crab"; 
+                    tiles[row][col] = "crab";  // spawn crab enemies
                 }
             }
         }
@@ -40,40 +41,28 @@ public class SeaWorld extends MyWorld {
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
                 if (tiles[row][col].equals("crab")) {
-                    addObject(new Crab(true), col * 100, row * 100);
+                    addObject(new Crab(false), col * 100, row * 100);
                 }
             }
         }
     }
 
-    @Override
-    public void act() {
-        // Check if the monkey reaches the "end" of the level
-        Actor monkey = getFirstMonkey();
+    public void act(){
+        int x = seaMonkey.getX();
+        int y = seaMonkey.getY();
 
-        if (monkey != null && hasReachedEnd(monkey)) {
-            levelComplete = true;
+        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
+            seaMonkey.setLocation (x + 1, y);
         }
-
-        /*
-         * if (levelComplete) {
-            Mayflower.setWorld(new GameOverWorld());
-       
+        else if (Mayflower.isKeyDown( Keyboard.KEY_SPACE )) {
+            seaMonkey.setLocation(x, y + 1);
         }
-        */
-    }
-
-    // get the player (monkey) actor
-    private Actor getFirstMonkey() {
-        if (getObjects(Cat.class).size() > 0) {
-            return getObjects(Cat.class).get(0);
+        if(isStarted()){
+            SeaWorld water = new SeaWorld();
+            Mayflower.setWorld(water);
+            levelComplete = false;
+            //problem? -- will this continue being called and not allow us to
+            //move to another world than the sky? -- fix
         }
-        return null;
-    }
-
-    // check if monkey reached right edge (or final tile)
-    private boolean hasReachedEnd(Actor monkey) {
-        return monkey.getX() + monkey.getWidth() >= getWidth() - 10;
     }
 }
-

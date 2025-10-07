@@ -58,7 +58,7 @@ public class SkyWorld extends MyWorld
 
                     }
                     int rand = (int)(Math.random()*(tiles[0].length));
-                    if((rand < 2) && (tiles[row][col] == "")){
+                    if((rand < 1) && (tiles[row][col] == "")){
                         tiles[row][col] = "cloud";
                     }
                 }
@@ -82,6 +82,10 @@ public class SkyWorld extends MyWorld
                     removeObject(b);
                     addObject(new Cloud(true), col * 100, row * 100);
                 }
+                
+                if(tiles[row][col].equals("banana") && countFall == 1){
+                    addObject(new Banana(true), col * 100, row * 100);
+                }
             }
         }
     }
@@ -99,9 +103,9 @@ public class SkyWorld extends MyWorld
         }
     
     
-    public boolean canFall(int x){
+    public boolean canFall(int x, int y){
         int counter = 0;
-        while(checkIfFalling(x) > 0){
+        while(checkIfFalling(x) > 0 && y < 40){
             return true;
         }
         return false;
@@ -116,15 +120,21 @@ public class SkyWorld extends MyWorld
             buildWorld();            
         }
         
-        if(canFall(x)){
+        if(canFall(x, y)){
             skyMonkey.setLocation(x, y + 1); 
         }
         if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
             skyMonkey.setLocation (x + 1, y);
+            skyMonkey.setWalkRight();
         }
-        if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
+        else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
             skyMonkey.setLocation(x - 1, y);
+            skyMonkey.setWalkLeft();
+
             }
+        else{
+            skyMonkey.setIdle();
+        }
         if(isStarted()){
             LandWorld land = new LandWorld();
             Mayflower.setWorld(land);
