@@ -22,7 +22,7 @@ public class StarterScreen extends MyWorld
     public StarterScreen()
     {
         // initialise instance variables
-        super();
+        super("img/BG/startscreen.png");
         text = "Welcome to our game!";
         showText(this.text, 200, 100, Color.WHITE);
         showText("Click Right Arrow Key to begin >", 20, 100, 180, Color.BLUE); 
