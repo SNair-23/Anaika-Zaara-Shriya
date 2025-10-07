@@ -102,7 +102,7 @@ public class SkyWorld extends MyWorld
     }
     
     public int checkIfFalling(int x){
-        if(x > 200)
+        if(x > 230)
             {
                 countFall += 1;
             }
@@ -129,7 +129,7 @@ public class SkyWorld extends MyWorld
     
     public void act(){
         super.act();
-        showText("Lives: " + lives, 10, 50, Color.BLACK);
+        showText("Lives: " + lives, 10, 60, Color.BLACK);
 
         int x = skyMonkey.getX();
         int y = skyMonkey.getY();
@@ -148,10 +148,10 @@ public class SkyWorld extends MyWorld
         
         if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
             skyMonkey.setWalkRight();
-            skyMonkey.setLocation (x + 2, y);
+            skyMonkey.setLocation (x + 5, y);
         }
         else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
-            skyMonkey.setLocation(x - 2, y);
+            skyMonkey.setLocation(x - 5, y);
             skyMonkey.setWalkLeft();
 
             }
