@@ -1,8 +1,8 @@
 import mayflower.*;
 
 public class MyWorld extends World {
-    private int score;
-    private int lives;
+    private static int score;
+    public static int lives;
     public String[][] tiles;
     public Cat cat;
     private TypeWorld world;
@@ -10,18 +10,16 @@ public class MyWorld extends World {
     //location of the character
     private int x;
     private int y;
-
+    
     //Default constructor that creates a start screen (black world)
-    public MyWorld()
+    public MyWorld(String img_file)
     {
-        setBackground("img/BG/startscreen.png");
+        
+        setBackground(img_file);
 
     }
+    
     //Constructor to specify an image as the world's background
-
-    //I'm thinking: Each class - sky/land/water can extend MyWorld and call a 
-    //reference to this constructor to set the background image as something 
-    //different ------ Shriya
     public MyWorld(TypeWorld subworld, String img, String[][] array, int x , int y) 
     {
         setBackground(img);
@@ -69,11 +67,9 @@ public class MyWorld extends World {
         for(int row=0; row < tiles.length; row++){
             for(int col=0; col < tiles[row].length; col++){
                 if(tiles[row][col].equals("ground")){
-                    addObject(new Block(), col * 100, row * 100);
+                    addObject(new Block(false), col * 100, row * 100);
                 }
-                if(tiles[row][col].equals("banana")){
-                    addObject(new Banana(true), col * 100, row * 100);
-                }
+                
             }
         }
     }
@@ -107,9 +103,20 @@ public class MyWorld extends World {
         return cat;
     }
     
+    public static void remLife(){
+        lives --;
+    }
+    
+    public static void addPoint(){
+        score++;
+    }
+
     public void act()
     {
-        
+        if(cat.isTouchingObject() == WorldObject.Banana){
+            addPoint();
+        }        
+        showText("Score: " + score, 10, 30, Color.BLACK);
     }
 }
 
