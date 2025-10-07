@@ -7,6 +7,7 @@ public class Cat extends AnimatedActor
     private Animation idle;
     private int locationX;
     private int locationY;
+
     public Cat(int x, int y) // the constructor takes two parameters for the x and y location of the character
     {
         locationX = x;
@@ -61,11 +62,7 @@ public class Cat extends AnimatedActor
         }
         return null;
     }
-    
-    public boolean isEndangered(boolean danger)
-    {
-        return danger;
-    }
+   
     
     public void act()
     {
