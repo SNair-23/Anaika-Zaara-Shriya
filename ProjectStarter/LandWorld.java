@@ -106,11 +106,17 @@ public class LandWorld extends MyWorld
         
         
         if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
-            landMonkey.setLocation (x + 1, y);
+            landMonkey.setWalkRight();
+            landMonkey.setLocation (x + 5, y);
         }
-        else if (Mayflower.isKeyDown( Keyboard.KEY_SPACE )) {
-            landMonkey.setLocation(x, y + 1);
+        else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
+            landMonkey.setLocation(x - 5, y);
+            landMonkey.setWalkLeft();
+
             }
+        else{
+            landMonkey.setIdle();
+        }
         y = getGroundY(x)- landMonkey.getHeight();
         landMonkey.setLocation(x,y);
         if(isStarted()){
