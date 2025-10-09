@@ -49,8 +49,7 @@ public class Cat extends AnimatedActor
     }  
     
 
-    public WorldObject isTouchingObject()
-    {
+    public WorldObject isTouchingObject(){
         if (this.isTouching(Cloud.class)){
             return WorldObject.Cloud;
         }
@@ -59,7 +58,18 @@ public class Cat extends AnimatedActor
         }
         if (this.isTouching(Banana.class)){
             removeTouching(Banana.class);
+            MyWorld.score++;
             return WorldObject.Banana;
+        }
+        if (this.isTouching(Crab.class)){
+            removeTouching(Crab.class);
+            SeaWorld.lives--;
+            return WorldObject.Crab;
+        }
+        if (this.isTouching(Portal.class)){
+            removeTouching(Portal.class);
+            SeaWorld.didWin= true;
+            return WorldObject.Portal;
         }
         return null;
     }
