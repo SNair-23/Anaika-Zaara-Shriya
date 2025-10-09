@@ -1,12 +1,12 @@
 import mayflower.*;
 public class SeaWorld extends MyWorld {
-    private boolean didWin;
+    public static boolean didWin;
     private boolean didLose;
     private Cat seaMonkey;
     private boolean start;
-    private int lives;
+    public static int lives;
     public SeaWorld() {
-        super(TypeWorld.Water, "img/BG/SeaBlue.jpg", new String[30][8], 600, 800);
+        super(TypeWorld.Water, "img/BG/ocean.png", new String[30][8], 600, 800);
         didWin = false;
         didLose = false;
         seaMonkey = super.getCat();
@@ -42,6 +42,7 @@ public class SeaWorld extends MyWorld {
     @Override
     public void addRandomObjects() {
         super.addRandomObjects();
+        // Add bananas randomly
         for(int row=0; row<tiles.length-1;row++)
         {
                 for(int col=0; col<tiles[row].length; col++)
@@ -53,6 +54,7 @@ public class SeaWorld extends MyWorld {
                     }
                 }
         }
+        // Add crabs randomly
         for(int row=1; row<tiles.length-1;row++)
         {
                 for(int col=0; col<tiles[row].length; col++)
@@ -76,12 +78,13 @@ public class SeaWorld extends MyWorld {
         super.buildWorld();
         for (int row = 0; row < tiles.length; row++) {
             for (int col = 0; col < tiles[row].length; col++) {
-                if (tiles[row][col].equals("crab")) {
+                if (tiles[row][col].equals("crab")&&!tiles[row][col].equals("banana")&&!tiles[row][col].equals("portal")) {
                     addObject(new Crab(false), col * 100, row * 100);
                 }
-                if(tiles[row][col].equals("banana")){
+                if(tiles[row][col].equals("banana")&&!tiles[row][col].equals("crab")&&!tiles[row][col].equals("portal")){
                     addObject(new Banana(false), col * 100, row * 100);
                 }
+                // One fixed portal in bottom-right corner
                 addObject(new Portal(false), 700, 500);
             }
         }
@@ -89,7 +92,7 @@ public class SeaWorld extends MyWorld {
     }
     
     public void loseLife(){
-         lives -= 1;
+         lives--;
     }
     
     public int numLives(){
@@ -119,35 +122,40 @@ public class SeaWorld extends MyWorld {
             return false;
         }
     }
+
     
     public void act(){
         super.act();
-        showText("Lives: " + lives, 10, 50, Color.BLACK);
+        showText("Lives: " + lives, 10, 55, Color.BLACK);
+        
         int x = seaMonkey.getX();
         int y = seaMonkey.getY();
-        int w = getWidth();
-        int h = getHeight();
         
-        if(seaMonkey.isTouchingObject() == WorldObject.Crab)
-        {
-            loseLife();
+        if (seaMonkey.isTouchingObject() == WorldObject.Banana) {
+            addPoint();
         }
        
-        if(Mayflower.isKeyDown(Keyboard.KEY_RIGHT) && x+w<800)
-        {
-            seaMonkey.setLocation(x+1, y);
+        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
+            seaMonkey.setWalkRight();
+            seaMonkey.setLocation (x + 5, y);
         }
-        else if(Mayflower.isKeyDown(Keyboard.KEY_LEFT) && x>0)
-        {
-            seaMonkey.setLocation(x-1, y);
-        }
-        else if(Mayflower.isKeyDown(Keyboard.KEY_UP) && y>0)
-        {
-            seaMonkey.setLocation(x, y-1);
-        }
-        else if(Mayflower.isKeyDown(Keyboard.KEY_DOWN) && y<600)
-        {
-            seaMonkey.setLocation(x, y+1);
+        else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
+            seaMonkey.setLocation(x - 5, y);
+            seaMonkey.setWalkLeft();
+
+            }
+        else if (Mayflower.isKeyDown( Keyboard.KEY_UP )&& y>0) {
+            seaMonkey.setLocation(x, y-5);
+            seaMonkey.setIdle();
+
+            }
+        else if (Mayflower.isKeyDown( Keyboard.KEY_DOWN)&& y<600) {
+            seaMonkey.setLocation(x, y+5);
+            seaMonkey.setIdle();
+
+            }
+        else{
+            seaMonkey.setIdle();
         }
         
         if(goToWin()){
