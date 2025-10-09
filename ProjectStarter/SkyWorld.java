@@ -67,22 +67,22 @@ public class SkyWorld extends MyWorld
     
     @Override
     public void buildWorld(){
-        if(countFall == 1){
-            super.buildWorld();
-        }
         Cloud a = new Cloud(this, false);
         Cloud b = new Cloud(this, false);
         addObject(a, 0, 100);
         addObject(b, 100, 100);
+        if(countFall >= 1){
+            super.buildWorld();
+            this.removeObject(a);
+            this.removeObject(b);
+        }
+        
+        
         
         for(int row=0; row < tiles.length; row++){
             for(int col=0; col < tiles[row].length; col++){
-                if(countFall == 1){
-                    removeObject(a);
-                    removeObject(b);
-                
+               
                     if(tiles[row][col].equals("cloud") && countFall == 1){
-                        
                         addObject(new Cloud(this, true), col * 100, row * 100);
                     }
                     if(tiles[row][col].equals("banana") && countFall == 1){
@@ -95,7 +95,7 @@ public class SkyWorld extends MyWorld
                 
             }
         }
-    }
+    
     
     public void loseLife(){
          lives -= 1;
@@ -142,7 +142,6 @@ public class SkyWorld extends MyWorld
         if(checkIfFalling(x) == 1){
             buildWorld();            
         }
-        
         if(canFall()){
             skyMonkey.setLocation(x, y + 1); 
         }
@@ -153,10 +152,10 @@ public class SkyWorld extends MyWorld
         
         if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
             skyMonkey.setWalkRight();
-            skyMonkey.setLocation (x + 2, y);
+            skyMonkey.setLocation (x + 5, y);
         }
         else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
-            skyMonkey.setLocation(x - 2, y);
+            skyMonkey.setLocation(x - 5, y);
             skyMonkey.setWalkLeft();
 
             }
