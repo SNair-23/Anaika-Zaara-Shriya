@@ -1,40 +1,22 @@
 import mayflower.*;
-
-/**
- * Write a description of class EndWinScreen here.
- *
- * @author (Zaara I)
- * @version (a version number or a date)
- 
 public class EndWinScreen extends MyWorld
 {
     private String text;
-    private boolean start;
-    private MayflowerImage startbutton;
   
     public EndWinScreen()
     {
-        super();
-        text = "You win!";
-        showText(this.text, 200, 100, Color.WHITE);
-        
-       
+        super(TypeWorld.Win,"img/BG/YouWinScreen.png");
     }
-    public boolean isEnded()
+    /*public boolean isEnded()
     {
-        if (seaWorld = 10)
-        {
-            display EndWinScreen;
-        }
-        else
+        if (gameLose())
         {
             display EndLoseScreen;
         }
     }
+    */
     public void act()
     {
         
     }
 }
-
-*/
