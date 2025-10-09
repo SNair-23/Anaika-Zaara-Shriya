@@ -8,5 +8,5 @@
 public enum WorldObject
 {
     // instance variables - replace the example below with your own
-    Cloud, Block, Banana, Crab
+    Cloud, Block, Banana, Crab, Portal
 }
