@@ -12,7 +12,7 @@ public class Portal extends Actor
     private boolean falling;
     public Portal(boolean val){
         img = new MayflowerImage("img/portal.png");
-        img.scale(100,60);
+        img.scale(100,100);
         setImage(img);
         falling = val;
     }
