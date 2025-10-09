@@ -70,23 +70,28 @@ public class SkyWorld extends MyWorld
         if(countFall == 1){
             super.buildWorld();
         }
-        Cloud a = new Cloud(false);
-        Cloud b = new Cloud(false);
+        Cloud a = new Cloud(this, false);
+        Cloud b = new Cloud(this, false);
         addObject(a, 0, 100);
         addObject(b, 100, 100);
         
         for(int row=0; row < tiles.length; row++){
             for(int col=0; col < tiles[row].length; col++){
-                if(tiles[row][col].equals("cloud") && countFall == 1){
+                if(countFall == 1){
                     removeObject(a);
                     removeObject(b);
-                    addObject(new Cloud(true), col * 100, row * 100);
-                }
                 
-                if(tiles[row][col].equals("banana") && countFall == 1){
-                    addObject(new Banana(true), col * 100, row * 100);
-                }
-                
+                    if(tiles[row][col].equals("cloud") && countFall == 1){
+                        
+                        addObject(new Cloud(this, true), col * 100, row * 100);
+                    }
+                    if(tiles[row][col].equals("banana") && countFall == 1){
+                        addObject(new Banana(true), col * 100, row * 100);
+                    }
+                    if(tiles[row][col].equals("ground")){
+                    addObject(new Block(true), col * 100, row * 100);
+                    }
+            }
                 
             }
         }
@@ -102,7 +107,7 @@ public class SkyWorld extends MyWorld
     }
     
     public int checkIfFalling(int x){
-        if(x > 230)
+        if(x > 200)
             {
                 countFall += 1;
             }
@@ -116,7 +121,7 @@ public class SkyWorld extends MyWorld
     
     public boolean canFall(){
         int count = 0;
-        while(countFall > 0 && skyMonkey.getY() <500){
+        while(countFall > 0 && skyMonkey.getY() < 450){
             count ++;
             return true;
         }
@@ -129,7 +134,7 @@ public class SkyWorld extends MyWorld
     
     public void act(){
         super.act();
-        showText("Lives: " + lives, 10, 60, Color.BLACK);
+        showText("Lives: " + lives, 10, 50, Color.BLACK);
 
         int x = skyMonkey.getX();
         int y = skyMonkey.getY();
@@ -148,10 +153,10 @@ public class SkyWorld extends MyWorld
         
         if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
             skyMonkey.setWalkRight();
-            skyMonkey.setLocation (x + 5, y);
+            skyMonkey.setLocation (x + 2, y);
         }
         else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
-            skyMonkey.setLocation(x - 5, y);
+            skyMonkey.setLocation(x - 2, y);
             skyMonkey.setWalkLeft();
 
             }
