@@ -25,7 +25,7 @@ public class SkyWorld extends MyWorld
         //create a skyworld and place the monkey on screen
         super(TypeWorld.Sky, "img/BG/Sky_Blue.png", new String[30][8], 300, 200);
         skyMonkey = super.getCat();
-
+        skyMonkey.setWalkRight();
         start = false;
         countFall = 0;
         lives = 3;
@@ -68,35 +68,33 @@ public class SkyWorld extends MyWorld
     
     @Override
     public void buildWorld(){
+        if(countFall == 1){
+            super.buildWorld();
+        }
         Cloud a = new Cloud(this, false);
         Cloud b = new Cloud(this, false);
         addObject(a, 0, 100);
         addObject(b, 100, 100);
-        if(countFall >= 1){
-            super.buildWorld();
-            a.removeCloud();
-            b.removeCloud();
-        }
-        
-        
         
         for(int row=0; row < tiles.length; row++){
             for(int col=0; col < tiles[row].length; col++){
-               
-                    if(tiles[row][col].equals("cloud") && countFall == 1){
-                        addObject(new Cloud(this, true), col * 100, row * 100);
-                    }
-                    if(tiles[row][col].equals("banana") && countFall == 1){
-                        addObject(new Banana(true), col * 100, row * 100);
-                    }
-                    if(tiles[row][col].equals("ground")){
+                if(tiles[row][col].equals("cloud") && countFall == 1){
+                    removeObject(a);
+                    removeObject(b);
+                    addObject(new Cloud(this, true), col * 100, row * 100);
+                }
+                
+                if(tiles[row][col].equals("banana") && countFall == 1){
+                    addObject(new Banana(true), col * 100, row * 100);
+                }
+                
+                if(tiles[row][col].equals("ground")){
                     addObject(new Block(true), col * 100, row * 100);
                     }
-            }
                 
             }
         }
-    
+    }
     
     public void loseLife(){
          lives -= 1;
@@ -108,7 +106,7 @@ public class SkyWorld extends MyWorld
     }
     
     public int checkIfFalling(int x){
-        if(x > 200)
+        if(x > 230)
             {
                 countFall += 1;
             }
@@ -120,7 +118,7 @@ public class SkyWorld extends MyWorld
         }
     
     
-    public boolean canFall(){
+     public boolean canFall(){
         int count = 0;
         while(countFall > 0 && skyMonkey.getY() < 450){
             count ++;
@@ -133,17 +131,18 @@ public class SkyWorld extends MyWorld
     }
     
     
+    
     public void act(){
         super.act();
-        showText("Lives: " + lives, 10, 50, Color.BLACK);
+        showText("Lives: " + lives, 10, 60, Color.BLACK);
 
         int x = skyMonkey.getX();
         int y = skyMonkey.getY();
-
+        
         if(checkIfFalling(x) == 1){
-            buildWorld();    
-            
+            buildWorld();            
         }
+        
         if(canFall()){
             skyMonkey.setLocation(x, y + 1); 
         }
@@ -152,6 +151,18 @@ public class SkyWorld extends MyWorld
         }
         
         
+        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
+            skyMonkey.setWalkRight();
+            skyMonkey.setLocation (x + 5, y);
+        }
+        else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
+            skyMonkey.setLocation(x - 5, y);
+            skyMonkey.setWalkLeft();
+
+            }
+        else{
+            skyMonkey.setIdle();
+        }
         if(isStarted()){
             LandWorld land = new LandWorld();
             Mayflower.setWorld(land);
