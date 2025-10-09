@@ -3,11 +3,14 @@ public class Cloud extends Actor
 {
     private MayflowerImage img;
     private boolean falling;
-    public Cloud(boolean val){
+    private SkyWorld wo;
+    public Cloud(SkyWorld sky, boolean val){
         img = new MayflowerImage("img/cloud.png");
         img.scale(150,87);
         setImage(img);
         falling = val;
+        wo = sky;
+        
     }
     public void act(){
         int x = getX();
@@ -17,6 +20,10 @@ public class Cloud extends Actor
         
         if (falling) {
             setLocation (x, y-0.5);
+        }
+        
+        if(y<5){
+            wo.removeObject(this); 
         }
         
     }
