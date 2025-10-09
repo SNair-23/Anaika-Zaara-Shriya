@@ -25,6 +25,7 @@ public class SkyWorld extends MyWorld
         //create a skyworld and place the monkey on screen
         super(TypeWorld.Sky, "img/BG/Sky_Blue.png", new String[30][8], 300, 200);
         skyMonkey = super.getCat();
+
         start = false;
         countFall = 0;
         lives = 3;
@@ -73,8 +74,8 @@ public class SkyWorld extends MyWorld
         addObject(b, 100, 100);
         if(countFall >= 1){
             super.buildWorld();
-            this.removeObject(a);
-            this.removeObject(b);
+            a.removeCloud();
+            b.removeCloud();
         }
         
         
@@ -138,9 +139,10 @@ public class SkyWorld extends MyWorld
 
         int x = skyMonkey.getX();
         int y = skyMonkey.getY();
-        
+
         if(checkIfFalling(x) == 1){
-            buildWorld();            
+            buildWorld();    
+            
         }
         if(canFall()){
             skyMonkey.setLocation(x, y + 1); 
@@ -150,18 +152,6 @@ public class SkyWorld extends MyWorld
         }
         
         
-        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
-            skyMonkey.setWalkRight();
-            skyMonkey.setLocation (x + 5, y);
-        }
-        else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
-            skyMonkey.setLocation(x - 5, y);
-            skyMonkey.setWalkLeft();
-
-            }
-        else{
-            skyMonkey.setIdle();
-        }
         if(isStarted()){
             LandWorld land = new LandWorld();
             Mayflower.setWorld(land);
