@@ -19,6 +19,15 @@ public class MyWorld extends World {
 
     }
     
+    //constructor that creates end screens
+    public MyWorld(TypeWorld subworld, String img_file)
+    {
+        
+        setBackground(img_file);
+        world = subworld;
+
+    }
+    
     //Constructor to specify an image as the world's background
     public MyWorld(TypeWorld subworld, String img, String[][] array, int x , int y) 
     {
