@@ -8,5 +8,5 @@
 public enum TypeWorld
 {
     // instance variables - replace the example below with your own
-    Sky, Land, Water 
+    Sky, Land, Water, Win, Lose
 }
