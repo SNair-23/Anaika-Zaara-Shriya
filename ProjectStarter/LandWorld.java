@@ -34,17 +34,15 @@ public class LandWorld extends MyWorld
     public void buildWorld()
     {
         super.buildWorld();
-        Pig a = new Pig(false);
-        Pig b = new Pig(false);
-        addObject(a, 0, 100);
-        addObject(b, 100, 100);
         for(int row = 0; row < tiles.length; row++)
         {
             for (int col = 0; col < tiles[row].length;col++)
             {
                 if(tiles[row][col].equals("pig"))
                 {
-                    addObject(new Pig(true), col * 100, row * 100);
+                    int groundY = getGroundYForColumn(col);
+                    int pigY = groundY - 40;
+                    addObject(new Pig(true), col * 100, pigY);
                 }
                 if(tiles[row][col].equals("banana")){
                     addObject(new Banana(false), col * 100, row * 100);
@@ -52,39 +50,53 @@ public class LandWorld extends MyWorld
             }
         }
     }
-    
+    private int getGroundYForColumn(int col)
+    {
+        for (int row = tiles.length - 1;row >= 0; row--)
+        {
+            if (tiles[row][col].equals("ground") || tiles[row][col].equals("block"))
+            {
+                return row * 100;
+            }
+        }
+        return tiles.length * 100;
+    }
+    private int getGroundY(int x)
+    {
+        int col = x / 100;
+        for (int row = tiles.length - 1; row >= 0; row--)
+        {
+            if (tiles[row][col].equals("ground") || tiles[row][col].equals("block"))
+            {
+                return row * 100;
+            }
+        }
+        return tiles.length * 100;
+    }
+    @Override
     public void addRandomObjects()
     {
         super.addRandomObjects();
         for(int row=0; row<tiles.length-1;row++)
         {
-                for(int col=0; col<tiles[row].length; col++)
+            for(int col=0; col<tiles[row].length; col++)
+            {
+                int rand = (int)(Math.random()*10);
+                if((rand < 1) && tiles[row][col].equals("") && (tiles[row + 1][col].equals("ground")
+                || tiles[row + 1][col].equals("block")))
                 {
-                    int rand = (int)(Math.random()*(tiles[0].length));
-                    if((rand < 1) && tiles[row][col] == "")
-                    {
-                        tiles[row][col] = "banana";
-                    }
+                    tiles[row][col] = "pig";
                 }
-        }
-        for(int row=1; row<tiles.length-1;row++)
-        {
-                for(int col=0; col<tiles[row].length; col++)
+                
+                rand = (int)(Math.random() * 10);
+                if((rand < 1) && tiles[row][col].equals("") && (tiles[row + 1][col].equals("ground")
+                || tiles[row + 1][col].equals("block")))
                 {
-                    if(row==1 && col>5)
-                    {
-                        tiles[row][col] = "pig";
-
-                    }
-                    int rand = (int)(Math.random()*(tiles[0].length));
-                    if((rand < 2) && (tiles[row][col] == ""))
-                    {
-                        tiles[row][col] = "pig";
-                    }
+                    tiles[row][col] = "banana";
                 }
+            }
         }
     }
-    
     public void act()
     {
 
@@ -99,6 +111,8 @@ public class LandWorld extends MyWorld
         else if (Mayflower.isKeyDown( Keyboard.KEY_SPACE )) {
             landMonkey.setLocation(x, y + 1);
             }
+        y = getGroundY(x)- landMonkey.getHeight();
+        landMonkey.setLocation(x,y);
         if(isStarted()){
             SeaWorld water = new SeaWorld();
             Mayflower.setWorld(water);
