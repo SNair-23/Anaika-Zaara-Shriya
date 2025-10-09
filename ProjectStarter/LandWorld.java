@@ -99,15 +99,15 @@ public class LandWorld extends MyWorld
     }
     public void act()
     {
-
+        super.act();
         int x = landMonkey.getX();
         int y = landMonkey.getY();
         
         
         
         if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
-            landMonkey.setWalkRight();
             landMonkey.setLocation (x + 5, y);
+            landMonkey.setWalkRight();
         }
         else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) {
             landMonkey.setLocation(x - 5, y);
