@@ -1,122 +1,73 @@
 import mayflower.*;
-public class LandWorld extends MyWorld
+
+public class Cat extends AnimatedActor
 {
-    private Cat landMonkey;
-    private boolean start;
-    
-    public LandWorld()
+    private Animation walkRight;
+    private Animation walkLeft;
+    private Animation idle;
+    private int locationX;
+    private int locationY;
+
+    public Cat(int x, int y) // the constructor takes two parameters for the x and y location of the character
     {
-
-        super(TypeWorld.Land,"img/BG/img.jpg", new String[6][32], 2, 5);
-        landMonkey = super.getCat();
-
-        
+        locationX = x;
+        locationY = y;
+        setLocation(locationX, locationY);
     }
-    public boolean isStarted()
+    
+    public void setWalkRight() //sets the character's animation to walking
     {
-        if (Mayflower.isKeyDown( Keyboard.KEY_W )) {
-            start = true;
+        String[] filenames = new String[9];
+        for (int i = 0; i < filenames.length; i++){
+            filenames[i] = "img/MonkeyAnim/sprite_" + i + ".png";
+        }
+        walkRight= new Animation(50, filenames);
+        walkRight.scale(100,87);
+        setAnimation(walkRight);
+    }
+    public void setWalkLeft() //sets the character's animation to walking
+    {
+        String[] filenames = new String[9];
+        for (int i = 0; i < filenames.length; i++){
+            filenames[i] = "img/MonkeyAnim/sprite_" + i + ".png";
             
         }
-        else
-        {
-            start = false;
-        }
-        return start;
-    } 
-    @Override
-    public void buildWorld()
-    {
-        super.buildWorld();
-        for(int row = 0; row < tiles.length; row++)
-        {
-            for (int col = 0; col < tiles[row].length;col++)
-            {
-                if(tiles[row][col].equals("pig"))
-                {
-                    int groundY = getGroundYForColumn(col);
-                    int pigY = groundY - 40;
-                    addObject(new Pig(true), col * 100, pigY);
-                }
-                if(tiles[row][col].equals("banana")){
-                    addObject(new Banana(false), col * 100, row * 100);
-                }
-            }
-        }
+        walkLeft = new Animation(50, filenames);
+        walkLeft.scale(100,87);
+        walkLeft.mirrorHorizontally();
+        setAnimation(walkLeft);
     }
-    private int getGroundYForColumn(int col)
+    public void setIdle() // sets the character's animation to idle
     {
-        for (int row = tiles.length - 1;row >= 0; row--)
-        {
-            if (tiles[row][col].equals("ground") || tiles[row][col].equals("block"))
-            {
-                return row * 100;
-            }
+        String[] filenames1 = new String[2];
+        for (int i = 0; i < filenames1.length; i++){
+            filenames1[i] = "img/MonkeyAnim/sprite_0.png";
         }
-        return tiles.length * 100;
-    }
-    private int getGroundY(int x)
+        idle = new Animation(50, filenames1);
+        idle.scale(100, 87);
+        setAnimation(idle);
+    }  
+    
+
+    public WorldObject isTouchingObject()
     {
-        int col = x / 100;
-        for (int row = tiles.length - 1; row >= 0; row--)
-        {
-            if (tiles[row][col].equals("ground") || tiles[row][col].equals("block"))
-            {
-                return row * 100;
-            }
+        if (this.isTouching(Cloud.class)){
+            return WorldObject.Cloud;
         }
-        return tiles.length * 100;
-    }
-    @Override
-    public void addRandomObjects()
-    {
-        super.addRandomObjects();
-        for(int row=0; row<tiles.length-1;row++)
-        {
-            for(int col=0; col<tiles[row].length; col++)
-            {
-                int rand = (int)(Math.random()*10);
-                if((rand < 1) && tiles[row][col].equals("") && (tiles[row + 1][col].equals("ground")
-                || tiles[row + 1][col].equals("block")))
-                {
-                    tiles[row][col] = "pig";
-                }
-                
-                rand = (int)(Math.random() * 10);
-                if((rand < 1) && tiles[row][col].equals("") && (tiles[row + 1][col].equals("ground")
-                || tiles[row + 1][col].equals("block")))
-                {
-                    tiles[row][col] = "banana";
-                }
-            }
+        if (this.isTouching(Block.class)){
+            return WorldObject.Block;
         }
+        if (this.isTouching(Banana.class)){
+            removeTouching(Banana.class);
+            return WorldObject.Banana;
+        }
+        return null;
     }
+   
+    
     public void act()
     {
-
-        int x = landMonkey.getX();
-        int y = landMonkey.getY();
+        super.act();
         
-        
-        
-        if (Mayflower.isKeyDown( Keyboard.KEY_RIGHT )) {
-            x+=5;
-            landMonkey.setWalkRight();
-        }
-        else if (Mayflower.isKeyDown( Keyboard.KEY_LEFT )) 
-        {
-            x-=5;
-            landMonkey.setWalkLeft();
-        }
-        y = getGroundY(x)- landMonkey.getHeight();
-        landMonkey.setLocation(x,y);
-        if(isStarted()){
-            SeaWorld water = new SeaWorld();
-            Mayflower.setWorld(water);
-            start = false;
-            //problem? -- will this continue being called and not allow us to
-            //move to another world than the sky? -- fix
-        }
-    
-    }   
+    }
 }
