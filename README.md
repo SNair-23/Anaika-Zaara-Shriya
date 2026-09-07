@@ -1,31 +1,13 @@
 # Anaika-Zaara-Shriya
 CS3 Project
 
-Ideas:
-- snakes & ladders
-- Down scrolling game
-    - Snakes falling from sky (objects)
-    - When player is hit by falling object, the speed increases
-    - Ladders = path
-    - 3 Level Changes --- change colors + new objects
-          - 1st level: In the air (Monkey will fly & catch bananas & enemy is bird & finally fall on land)
-          - 2nd level: On land (Monkey will be in the jungle & catch bananas & enemy is land animal & finally fall into water)
-          - 3rd level: Underwater (Monkey will be under the sea & catch bananas & enemy is a shark & monkey finally on land)
-- Diff Characters (if time)
-
-Imgs needed:
-- Title Screen
-- game over screen (you win/you lose)
-- backgrounds for each world + tiles
-- player
-- enemy
-- points
-- 
-
-
 ** Rubric + Instructions:
 
-Expectations:
+# Description:
+A Java based survival game that involves 3 worlds: Sky, Land, and Water, with a Monkey main character 
+that moves through each environment through different animations!
+
+# Expectations:
 Your project should include the following features (these will be explained in more detail as listed in the timeline)
 • An animated Actor, controlled by the user, that can move around the screen:
 o walk
@@ -48,7 +30,7 @@ o including Jump/climb animation
 o Water / Spike floors
 o Enemies that move around
 
-Timeline:
+# Timeline:
 Day 1 Move around on screen w/ animations (walk, idle, fall)
 Use 2d array to represent map
 
@@ -69,6 +51,26 @@ Day 5 Finishing touches / Big Fixes / Practice Presentation
 
 Day 6 Presentations
 
+# Brainstorm for game ideas
+- snakes & ladders
+- Down scrolling game
+    - Snakes falling from sky (objects)
+    - When player is hit by falling object, the speed increases
+    - Ladders = path
+    - 3 Level Changes --- change colors + new objects
+          - 1st level: In the air (Monkey will fly & catch bananas & enemy is bird & finally fall on land)
+          - 2nd level: On land (Monkey will be in the jungle & catch bananas & enemy is land animal & finally fall into water)
+          - 3rd level: Underwater (Monkey will be under the sea & catch bananas & enemy is a shark & monkey finally on land)
+- Diff Characters (if time)
+
+Imgs needed:
+- Title Screen
+- game over screen (you win/you lose)
+- backgrounds for each world + tiles
+- player
+- enemy
+- points
+  
 
 
 # Our timeline/tasks
