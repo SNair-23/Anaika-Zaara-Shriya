@@ -1,8 +1,6 @@
 # Anaika-Zaara-Shriya
 CS3 Project
 
-** Rubric + Instructions:
-
 # Description:
 A Java based survival game that involves 3 worlds: Sky, Land, and Water, with a Monkey main character 
 that moves through each environment through different animations!
